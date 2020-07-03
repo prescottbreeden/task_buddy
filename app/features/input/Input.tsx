@@ -1,12 +1,11 @@
-import React from "react";
-import './Input.css';
-import { curry } from "ramda";
+import React, { ChangeEvent } from 'react';
+import { curry } from 'ramda';
 
 type InputProps = {
   className: string;
   disabled?: boolean;
   name: string;
-  onChange?: Function;
+  onChange?: <T>(data: T, name: keyof T, val: unknown) => void;
   placeholder?: string;
   value: string | number;
 };
@@ -14,22 +13,20 @@ type InputProps = {
 export const Input: React.FC<InputProps> = (props) => {
   const {
     className,
-    disabled,
+    disabled = false,
     name,
     onChange,
     placeholder,
     value,
   } = props;
 
-  const handleChange = curry((event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
+  const handleChange = curry((event: ChangeEvent<HTMLInputElement>) => {
+    const val = event.target.value;
     if (disabled) return;
-    let data: {
-      [key: string]: unknown;
-    } = {};
-
-    data[name] = value;
-    onChange && onChange(data, name, value);
+    const data = {
+      [name]: val,
+    };
+    onChange && onChange(data, name, val);
   });
 
   return (

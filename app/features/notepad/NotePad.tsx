@@ -6,7 +6,6 @@ import { TaskType } from "../../types/TaskType.type";
 import {buildOnChange} from "../../utils/misc";
 import Textarea from "../textarea/Textarea";
 import Input from "../input/Input";
-import './Notepad.css';
 
 type NotePadProps = {
   task: TaskType;

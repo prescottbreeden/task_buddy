@@ -1,12 +1,12 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from 'react';
 import { ipcRenderer } from 'electron';
-import { TaskType } from "../../types/TaskType.type";
-import { setCurrentTask } from "../../redux/actions/currenttask.actions";
-import { connect, useDispatch } from "react-redux";
-import { getCurrentTask } from "../../redux/selectors/tasks.selectors";
-import {deleteTask} from "../../redux/actions/tasks.actions";
-import Input from "../input/Input";
-import Icon from "../icon/Icon";
+import { connect, useDispatch } from 'react-redux';
+import { TaskType } from '../../types/TaskType.type';
+import { setCurrentTask } from '../../redux/actions/currenttask.actions';
+import { getCurrentTask } from '../../redux/selectors/tasks.selectors';
+import { deleteTask } from '../../redux/actions/tasks.actions';
+import Input from '../input/Input';
+import Icon from '../icon/Icon';
 
 interface TaskProps {
   onChange: Function;
@@ -19,7 +19,6 @@ const Task: React.FC<TaskProps> = (props) => {
   const { currentTask, onChange, task } = props;
 
   const [session, setSession] = useState(0);
-  const [, setState] = useState(); // force state update hack
 
   const getElapsed = () => {
     const now = new Date().getTime();
@@ -43,18 +42,17 @@ const Task: React.FC<TaskProps> = (props) => {
 
   const toggleComplete = () => {
     if (task.isActive) {
-      onChange(task)({
+      onChange && onChange(task)({
         completed: true,
         isActive: false,
         accumulatedTime: getElapsed(),
       });
 
     } else {
-      onChange(task)({
+      onChange && onChange(task)({
         completed: !task.completed,
       });
     }
-    /* setState({}); */
   };
 
 
@@ -67,7 +65,6 @@ const Task: React.FC<TaskProps> = (props) => {
         accumulatedTime: getElapsed(),
         isActive: !task.isActive,
       });
-      /* setState({}); */
     }
   };
 
@@ -106,7 +103,12 @@ const Task: React.FC<TaskProps> = (props) => {
         <div className="tasks__time">
           {getTime(task.accumulatedTime)}
           {!task.completed && 
-            <div onClick={toggleActive} className="tasks__icon">
+            <div 
+              tabIndex={0}
+              role="button"
+              onClick={toggleActive}
+              className="tasks__icon"
+            >
               {!task.isActive ? (
                 <Icon title="play" className="tasks__icon--svg play" />
               ) : (
@@ -117,16 +119,36 @@ const Task: React.FC<TaskProps> = (props) => {
         </div>
         <div className="tasks__actions">
           {!task.completed && (
-            <div onClick={toggleComplete} className="tasks__icon">
+            <div
+              aria-checked
+              tabIndex={0}
+              role="checkbox"
+              onClick={toggleComplete}
+              onKeyDown={() => null}
+              className="tasks__icon"
+            >
               <Icon title="unchecked" className="tasks__icon--svg" />
             </div>
           )}
           {task.completed && (
-            <div onClick={toggleComplete} className="tasks__icon">
+            <div
+              aria-checked
+              tabIndex={0}
+              role="checkbox"
+              onClick={toggleComplete}
+              onKeyDown={() => null}
+              className="tasks__icon"
+            >
               <Icon title="checked" className="tasks__icon--svg" />
             </div>
           )}
-          <div onClick={removeTask} className="tasks__icon">
+          <div
+            tabIndex={0}
+            role="button"
+            onClick={removeTask}
+            onKeyDown={() => console.log('fuck')}
+            className="tasks__icon"
+          >
             <Icon title="trash" className="tasks__icon--svg trash" />
           </div>
         </div>

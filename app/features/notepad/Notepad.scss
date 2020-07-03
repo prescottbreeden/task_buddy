@@ -4,19 +4,20 @@
   border: .1rem solid grey;
   display: flex;
   flex-direction: column;
-}
-.notepad__title {
+
+  &__title {
     font-size: 2rem;
     font-weight: 100;
     letter-spacing: 1px;
     padding: 1rem;
     text-align: center;
     border-bottom: 1px solid grey; 
-}
-.notepad__title:hover {
-    cursor: grab; 
-}
-  .notepad__notes {
+
+    &:hover {
+      cursor: grab; 
+    }
+  }
+  &__notes {
     background-color: #eee;
     font-size: 1.6rem;
     color: black;
@@ -24,8 +25,9 @@
     resize: none;
     font-family: fantasy;
     letter-spacing: 1px;
-    transition: all .5s; }
-  .notepad__description {
+    transition: all .5s;
+  }
+  &__description {
     color: black;
     padding: 1rem;
     background-color: #eee;
@@ -33,8 +35,9 @@
     font-family: fantasy;
     letter-spacing: 1px;
     resize: none;
-    transition: all .5s; }
-  .notepad__stats {
+    transition: all .5s;
+  }
+  &__stats {
     color: black;
     padding: 1rem;
     font-size: 1.6rem;
@@ -42,21 +45,27 @@
     font-family: fantasy;
     letter-spacing: 1px;
     resize: none;
-    transition: all .5s; }
-  .notepad__label {
+    transition: all .5s;
+  }
+  &__label {
     min-width: 30%;
-    color: #eee; }
-  .notepad__row {
+    color: #eee;
+  }
+  &__row {
     width: 100%;
     padding: 1rem;
     display: flex;
-    justify-content: space-between; }
-  .notepad__stat {
+    justify-content: space-between;
+  }
+  &__stat {
     color: #eee;
     text-align: left;
-    width: 60%; }
-  .notepad__input {
+    width: 60%; 
+  }
+  &__input {
     background-color: transparent;
     color: #eee;
     outline: none;
-    border: none; }
+    border: none;
+  }
+}
