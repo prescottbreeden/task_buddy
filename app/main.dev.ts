@@ -9,8 +9,10 @@
  * `./app/main.prod.js` using webpack. This gives us some performance wins.
  */
 import path from 'path';
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, ipcMain, ipcRenderer } from 'electron';
 import { autoUpdater } from 'electron-updater';
+import csv from 'csv-parser';
+import fs from 'fs';
 import log from 'electron-log';
 import MenuBuilder from './menu';
 
@@ -116,4 +118,20 @@ app.on('activate', () => {
   // On macOS it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (mainWindow === null) createWindow();
+});
+
+ipcMain.on('currentTask:set', (event: any, args: any) => {
+  console.log('currentTask:set', args);
+});
+
+ipcMain.on('file:upload', (event: any, file: string) => {
+  console.log('DATA RECEIVED', file);
+  const results: any[] = [];
+  fs.createReadStream(file)
+    .pipe(csv())
+    .on('data', (data) => results.push(data))
+    .on('end', () => {
+      console.log('RESULTS:', results);
+      ipcRenderer.send('file:parsed', results);
+    })
 });

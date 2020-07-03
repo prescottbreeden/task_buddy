@@ -5,6 +5,7 @@ export interface TaskType {
   accumulatedTime: number;
   completed: boolean;
   completedDate?: Date;
+  createdDate?: Date;
   description: string;
   isActive: boolean;
   name: string;

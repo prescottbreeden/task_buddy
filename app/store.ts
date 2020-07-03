@@ -3,14 +3,16 @@ import { createHashHistory } from 'history';
 import { ThunkAction } from 'redux-thunk';
 // eslint-disable-next-line import/no-cycle
 import createRootReducer from './rootReducer';
-import { tasksMiddleware } from './redux/middleware/feature/tasks.middleware';
+import { tasksMiddleware } from './redux/middleware/tasks.middleware';
+import {currentTaskMiddleware} from './redux/middleware/currentTask.middleware';
+import {fileMiddleware} from './redux/middleware/file.middleware';
 
 export const history = createHashHistory();
 const rootReducer = createRootReducer(history);
 export type RootState = ReturnType<typeof rootReducer>;
 
 // const router = routerMiddleware(history);
-const middleware = [tasksMiddleware];
+const middleware = [tasksMiddleware, currentTaskMiddleware, fileMiddleware];
 
 export const configuredStore = (initialState?: RootState) => {
   // Create Store
@@ -23,7 +25,6 @@ export const configuredStore = (initialState?: RootState) => {
   if (process.env.NODE_ENV === 'development' && module.hot) {
     module.hot.accept(
       './rootReducer',
-      // eslint-disable-next-line global-require
       () => store.replaceReducer(require('./rootReducer').default)
     );
   }

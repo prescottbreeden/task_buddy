@@ -75,6 +75,9 @@ body {
   font-size: 2rem;
   color: steelblue;
   height: 8rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .section {
   border: 1px dashed red;
