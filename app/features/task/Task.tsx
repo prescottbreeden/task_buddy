@@ -7,6 +7,7 @@ import { getCurrentTask } from '../../redux/selectors/tasks.selectors';
 import { deleteTask } from '../../redux/actions/tasks.actions';
 import Input from '../input/Input';
 import Icon from '../icon/Icon';
+import {renderData} from '../../utils/misc';
 
 interface TaskProps {
   onChange: Function;
@@ -75,6 +76,8 @@ const Task: React.FC<TaskProps> = (props) => {
     return (`${days}d : ${hours}h : ${minutes}m`);
   }
 
+  const render = renderData(task);
+
   useEffect(() => {
     ipcRenderer.send('test', 'ping');
   }, [])
@@ -87,10 +90,10 @@ const Task: React.FC<TaskProps> = (props) => {
     >
       <div className="tasks__description">
         <Input
-          name="name"
+          name="title"
           className="tasks__input tasks__input--title"
           onChange={onChange(task)}
-          value={task && task.name}
+          value={render('title').replace(/(\r\n\t|\n|\r\t)/gm,"")}
         />
         <Input
           name="relatedFeature"

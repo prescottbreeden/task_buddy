@@ -3,7 +3,7 @@ import { connect, useDispatch } from "react-redux";
 import { getCurrentTask, getTasks } from "../../redux/selectors/tasks.selectors";
 import { setTasks } from "../../redux/actions/tasks.actions";
 import { TaskType } from "../../types/TaskType.type";
-import {buildOnChange} from "../../utils/misc";
+import { buildOnChange, renderData } from "../../utils/misc";
 import Textarea from "../textarea/Textarea";
 import Input from "../input/Input";
 
@@ -42,10 +42,15 @@ const NotePad: React.FC<NotePadProps> = (props) => {
       return 'In Progress';
     }
     if (task.completed) {
-      return 'Task Completed'
+      return 'Task Completed';
     }
-    return 'Ready to Start'
+    if (task.accumulatedTime > 0) {
+      return 'Paused';
+    }
+    return 'Ready to Start';
   }
+
+  const render = renderData(task);
 
   return (
     <div className="notepad">
@@ -59,7 +64,7 @@ const NotePad: React.FC<NotePadProps> = (props) => {
         name="description"
         onChange={onChange(task)}
         className="notepad__description"
-        value={task && task.description}
+        value={render('description')}
         style={viewCard("description")}
       />
       <div
@@ -72,33 +77,68 @@ const NotePad: React.FC<NotePadProps> = (props) => {
         name="notes"
         onChange={onChange(task)}
         className="notepad__notes"
-        value={task && task.notes}
+        value={render('notes')}
         style={viewCard("notes")}
       />
       <div
         className="notepad__header"
         onClick={() => handleCardChange("stats")}
       >
-        <h3 className="notepad__title">Stats</h3>
+        <h3 className="notepad__title">Info</h3>
       </div>
       <div className="notepad__stats" style={viewCard("stats")}>
         {task && 
           <>
             <div className="notepad__row">
-              <p className="notepad__label">Created</p>
-              <p className="notepad__stat">{task && task.startedDate.toLocaleDateString()}</p>
+              <p className="notepad__label">Ticket / Task #</p>
+              <p className="notepad__stat">
+                {render('id').toUpperCase()}
+              </p>
             </div>
             <div className="notepad__row">
-              <p className="notepad__label">Estimate</p>
+              <p className="notepad__label">Work Item Type</p>
+              <p className="notepad__stat">
+                {render('workItemType')}
+              </p>
+            </div>
+            <div className="notepad__row">
+              <p className="notepad__label">Title</p>
+              <Textarea
+                name="title"
+                className="notepad__textarea notepad__stat"
+                onChange={onChange(task)}
+                value={render('title')}
+              />
+            </div>
+            <div className="notepad__row">
+              <p className="notepad__label">Created On</p>
+              <p className="notepad__stat">
+                {render('createdDate')}
+              </p>
+            </div>
+            <div className="notepad__row">
+              <p className="notepad__label">Started On</p>
+              <p className="notepad__stat">
+                {render('startedDate')}
+              </p>
+            </div>
+            <div className="notepad__row">
+              <p className="notepad__label">Assigned To</p>
+              <p className="notepad__stat">
+                {render('assignedTo')}
+              </p>
+            </div>
+            <div className="notepad__row">
+              <p className="notepad__label">Estimated Hours</p>
               <Input
                 name="originalEstimate"
                 className="notepad__input notepad__stat"
                 onChange={onChange(task)}
-                value={task && task.originalEstimate}
+                value={render('originalEstimate')}
               />
             </div>
             <div className="notepad__row">
-              <p className="notepad__label">Status</p>
+              <p className="notepad__label">Current Status</p>
               <p className="notepad__stat">
                 {getStatus()}
               </p>

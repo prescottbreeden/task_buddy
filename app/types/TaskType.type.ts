@@ -3,17 +3,21 @@ import {newId} from "../utils/misc";
 export interface TaskType {
   id: string;
   accumulatedTime: number;
+  assignedTo?: string;
   completed: boolean;
   completedDate?: Date;
-  createdDate?: Date;
+  createdDate: Date;
   description: string;
   isActive: boolean;
-  name: string;
+  iterationPath?: string;
   notes: string;
   originalEstimate: string;
   priority: number;
   relatedFeature: string;
-  startedDate: Date;
+  startedDate?: Date;
+  tags?: string;
+  title: string;
+  workItemType?: string;
 }
 
 export const emptyTask = (): TaskType => {
@@ -21,13 +25,13 @@ export const emptyTask = (): TaskType => {
     id: newId(),
     accumulatedTime: 0,
     completed: false,
+    createdDate: new Date(Date.now()),
     description: "type to edit",
     isActive: false,
-    name: "type to edit",
+    title: "type to edit",
     notes: "type to edit",
     originalEstimate: '0',
     priority: 1,
     relatedFeature: "type to edit",
-    startedDate: new Date(Date.now()),
   };
 };

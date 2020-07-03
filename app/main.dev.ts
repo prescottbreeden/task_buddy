@@ -9,7 +9,7 @@
  * `./app/main.prod.js` using webpack. This gives us some performance wins.
  */
 import path from 'path';
-import { app, BrowserWindow, ipcMain, ipcRenderer } from 'electron';
+import { app, BrowserWindow, ipcMain } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import csv from 'csv-parser';
 import fs from 'fs';
@@ -125,13 +125,12 @@ ipcMain.on('currentTask:set', (event: any, args: any) => {
 });
 
 ipcMain.on('file:upload', (event: any, file: string) => {
-  console.log('DATA RECEIVED', file);
   const results: any[] = [];
   fs.createReadStream(file)
     .pipe(csv())
     .on('data', (data) => results.push(data))
     .on('end', () => {
       console.log('RESULTS:', results);
-      ipcRenderer.send('file:parsed', results);
+      mainWindow?.webContents.send('file:parsed', results);
     })
 });

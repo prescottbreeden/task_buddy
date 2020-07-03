@@ -1,5 +1,6 @@
-import { map, pipe, prop, findIndex } from 'ramda';
+import { map, pipe, prop, findIndex, curry } from 'ramda';
 import { BaseAction } from '../types/BaseAction.type';
+import {TaskType, emptyTask} from '../types/TaskType.type';
 
 export const mergeObjects = <T>(obj1: T) => (obj2: Partial<T>): T => ({
   ...obj1,
@@ -40,3 +41,48 @@ export const buildOnChange = <T>(
 };
 
 export const newId = () => Math.random().toString(36).substring(7);
+
+export const renderData = curry((data: any, property: string): string => {
+  const bob = prop(property, data);
+  if (bob && bob instanceof Date) {
+    return bob.toLocaleDateString();
+  }
+  if (bob && typeof bob === 'number') {
+    return bob.toString().replace(/(\r\n\t|\n|\r\t)/gm,"");
+  }
+  if (bob && typeof bob === 'string') {
+    return bob.replace(/(\r\n\t|\n|\r\t)/gm,"");
+  }
+  return '-';
+});
+
+const getId = (task: any) => {
+  const id = task['ID'];
+  return id ? id : newId();
+};
+const getTitle = (task: any) => {
+  const title = task.Title;
+  return title ? title : 'type to edit';
+};
+const getType = (task: any) => { 
+  const type = task['Work Item Type'];
+  return type ? type: '';
+}
+const getAssignedTo = (task: any) => {
+  const assignedTo = task['Assigned To'];
+  return assignedTo ? assignedTo : 'Unassigned';
+}
+
+export const parseDataFromCSV = (tasks: any[]): TaskType[] => {
+  return tasks.map((task: any) => {
+    console.log(task);
+    return {
+      ...emptyTask(),
+      assignedTo: getAssignedTo(task),
+      id: getId(task),
+      title: getTitle(task),
+      workItemType: getType(task),
+    }
+  })
+
+}
