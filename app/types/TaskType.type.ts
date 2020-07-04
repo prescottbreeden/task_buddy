@@ -6,14 +6,16 @@ export interface TaskType {
   assignedTo?: string;
   completed: boolean;
   completedDate?: Date;
+  createdBy?: string;
   createdDate: Date;
   description: string;
   isActive: boolean;
   iterationPath?: string;
   notes: string;
-  originalEstimate: string;
-  priority: number;
+  originalEstimate?: string;
+  priority?: number;
   relatedFeature: string;
+  severity?: string;
   startedDate?: Date;
   tags?: string;
   title: string;
@@ -31,7 +33,6 @@ export const emptyTask = (): TaskType => {
     title: "type to edit",
     notes: "type to edit",
     originalEstimate: '0',
-    priority: 1,
     relatedFeature: "type to edit",
   };
 };

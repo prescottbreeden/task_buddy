@@ -78,6 +78,12 @@ const Task: React.FC<TaskProps> = (props) => {
 
   const render = renderData(task);
 
+  const getTimeClass = () => {
+    return isCurrentTask()
+      ? 'tasks__time tasks__time--focused'
+      : 'tasks__time';
+  }
+
   useEffect(() => {
     ipcRenderer.send('test', 'ping');
   }, [])
@@ -103,7 +109,7 @@ const Task: React.FC<TaskProps> = (props) => {
         />
       </div>
       <div className="tasks__options">
-        <div className="tasks__time">
+        <div className={getTimeClass()}>
           {getTime(task.accumulatedTime)}
           {!task.completed && 
             <div 

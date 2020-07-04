@@ -1,4 +1,4 @@
-$notepad-width: 50rem;
+$notepad-width: 60rem;
 $label-width: 15rem;
 
 .notepad {
@@ -56,6 +56,7 @@ $label-width: 15rem;
     padding: 1rem;
     display: flex;
     justify-content: space-between;
+    align-items: center;
   }
   &__section-text {
     width: 100%;
@@ -69,7 +70,21 @@ $label-width: 15rem;
     min-width: $label-width;
     max-width: $label-width;
     color: #eee;
+
+    &--title {
+      padding: .2rem 0;
+      align-self: flex-start;;
+      vertical-align: top;
+    }
   }
+
+  &__icon {
+    top: .1rem;
+    fill: #eee;
+    height: 1.2rem;
+    margin-left: .5rem;
+  }
+
   &__stat {
     color: #eee;
     text-align: left;
@@ -78,13 +93,20 @@ $label-width: 15rem;
     flex-grow: 1;
     word-wrap: break-word;
     cursor: default;
+    padding: .2rem .5rem;
+
   }
   &__input {
     background-color: transparent;
+    font-family: fantasy;
     color: #eee;
     outline: none;
-    border: none;
+    border: 1px solid transparent;
     cursor: text;
+    &:focus {
+      border: 1px solid #eee;
+      border-radius: 2px;
+    }
   }
   &__textarea {
     background-color: transparent;
@@ -93,9 +115,14 @@ $label-width: 15rem;
     font-size: 1.6rem;
     letter-spacing: .2px;
     outline: none;
-    border: none;
+    border: 1px solid transparent;
     resize: none;
     cursor: text;
+
+    &:focus {
+      border: 1px solid #eee;
+      border-radius: 2px;
+    }
 
     &::-webkit-scrollbar {
       width: .5rem;

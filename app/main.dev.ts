@@ -130,7 +130,6 @@ ipcMain.on('file:upload', (event: any, file: string) => {
     .pipe(csv())
     .on('data', (data) => results.push(data))
     .on('end', () => {
-      console.log('RESULTS:', results);
       mainWindow?.webContents.send('file:parsed', results);
-    })
+    });
 });

@@ -53,8 +53,12 @@ export const renderData = curry((data: any, property: string): string => {
   if (bob && typeof bob === 'string') {
     return bob.replace(/(\r\n\t|\n|\r\t)/gm,"");
   }
-  return '-';
+  return '';
 });
+
+export const noBlank = (bob: string) => {
+  return bob ? bob : '-';
+};
 
 const getId = (task: any) => {
   const id = task['ID'];
@@ -64,14 +68,50 @@ const getTitle = (task: any) => {
   const title = task.Title;
   return title ? title : 'type to edit';
 };
-const getType = (task: any) => { 
+const getWorkItemType = (task: any) => { 
   const type = task['Work Item Type'];
   return type ? type: '';
-}
+};
 const getAssignedTo = (task: any) => {
   const assignedTo = task['Assigned To'];
   return assignedTo ? assignedTo : 'Unassigned';
-}
+};
+const getTags = (task: any) => {
+  const tags = task.Tags;
+  return tags ? tags : '';
+};
+const getPriority = (task: any) => {
+  const priority = task.Priority;
+  return priority ? priority : '';
+};
+const getSeverity = (task: any) => {
+  const severity = task.Severity;
+  return severity ? severity : '';
+};
+const getReproSteps = (task: any) => {
+  const reproSteps = task['Repro Steps'];
+  return reproSteps ? reproSteps : '';
+};
+const getIterationPath = (task: any) => {
+  const iterationPath = task['Iteration Path'];
+  return iterationPath ? iterationPath : '';
+};
+const getCreatedBy = (task: any) => {
+  const createdBy = task['Created By'];
+  return createdBy ? createdBy : '';
+};
+const getCreatedDate = (task: any) => {
+  const createdDate = task['Created Date'];
+  return createdDate ? createdDate : '';
+};
+const getOriginalEstimate = (task: any) => {
+  const originalEstimate = task['Original Estimate'];
+  return originalEstimate ? originalEstimate : '0';
+};
+const getDescription = (task: any) => {
+  const description = task.Description;
+  return description ? description : 'type to edit';
+};
 
 export const parseDataFromCSV = (tasks: any[]): TaskType[] => {
   return tasks.map((task: any) => {
@@ -79,9 +119,18 @@ export const parseDataFromCSV = (tasks: any[]): TaskType[] => {
     return {
       ...emptyTask(),
       assignedTo: getAssignedTo(task),
+      createdBy: getCreatedBy(task),
+      createdDate: getCreatedDate(task),
+      description: getDescription(task),
       id: getId(task),
+      iterationPath: getIterationPath(task),
+      originalEstimate: getOriginalEstimate(task),
+      priority: getPriority(task),
+      reproSteps: getReproSteps(task),
+      severity: getSeverity(task),
+      tags: getTags(task),
       title: getTitle(task),
-      workItemType: getType(task),
+      workItemType: getWorkItemType(task),
     }
   })
 
