@@ -15,6 +15,7 @@ import csv from 'csv-parser';
 import fs from 'fs';
 import log from 'electron-log';
 import MenuBuilder from './menu';
+import DataStorage from './DataStorage';
 
 export default class AppUpdater {
   constructor() {
@@ -23,9 +24,15 @@ export default class AppUpdater {
     autoUpdater.checkForUpdatesAndNotify();
   }
 }
+// ===========================================================================
+//                            Windows
+// ===========================================================================
 
 let mainWindow: BrowserWindow | null = null;
 
+// ===========================================================================
+//                            Settings
+// ===========================================================================
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');
   sourceMapSupport.install();
@@ -48,6 +55,10 @@ const installExtensions = async () => {
   ).catch(console.log);
 };
 
+
+// ===========================================================================
+//                              Main Window
+// ===========================================================================
 const createWindow = async () => {
   if (
     process.env.NODE_ENV === 'development' ||
@@ -56,26 +67,27 @@ const createWindow = async () => {
     await installExtensions();
   }
 
+
   mainWindow = new BrowserWindow({
     show: false,
-    width: 1024,
-    height: 728,
+    maximizable: true,
     webPreferences:
       (process.env.NODE_ENV === 'development' ||
         process.env.E2E_BUILD === 'true') &&
       process.env.ERB_SECURE !== 'true'
         ? {
             nodeIntegration: true,
+            backgroundThrottling: false,
           }
         : {
             preload: path.join(__dirname, 'dist/renderer.prod.js'),
+            backgroundThrottling: false,
+            devTools: false,
           },
   });
 
   mainWindow.loadURL(`file://${__dirname}/app.html`);
 
-  // @TODO: Use 'ready-to-show' event
-  //        https://github.com/electron/electron/blob/master/docs/api/browser-window.md#using-ready-to-show-event
   mainWindow.webContents.on('did-finish-load', () => {
     if (!mainWindow) {
       throw new Error('"mainWindow" is not defined');
@@ -85,6 +97,7 @@ const createWindow = async () => {
     } else {
       mainWindow.show();
       mainWindow.focus();
+      mainWindow.maximize();
     }
   });
 
@@ -107,10 +120,10 @@ const createWindow = async () => {
   new AppUpdater();
 };
 
-/**
- * Add event listeners...
- */
 
+// ===========================================================================
+//                                App Listeners
+// ===========================================================================
 app.on('window-all-closed', () => {
   // Respect the OSX convention of having the application in memory even
   // after all windows have been closed
