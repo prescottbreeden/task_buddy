@@ -15,7 +15,7 @@ import csv from 'csv-parser';
 import fs from 'fs';
 import log from 'electron-log';
 import MenuBuilder from './menu';
-import DataStorage from './DataStorage';
+// import DataStorage from './DataStorage';
 
 export default class AppUpdater {
   constructor() {
@@ -78,6 +78,7 @@ const createWindow = async () => {
         ? {
             nodeIntegration: true,
             backgroundThrottling: false,
+            devTools: false,
           }
         : {
             preload: path.join(__dirname, 'dist/renderer.prod.js'),
@@ -120,7 +121,6 @@ const createWindow = async () => {
   new AppUpdater();
 };
 
-
 // ===========================================================================
 //                                App Listeners
 // ===========================================================================
@@ -150,4 +150,3 @@ ipcMain.on('file:upload', (event: IpcMainEvent, file: string) => {
       mainWindow?.webContents.send('file:parsed', results);
     });
 });
-

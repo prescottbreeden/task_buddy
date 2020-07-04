@@ -1,13 +1,12 @@
 import React from 'react';
-import styles from './Home.css';
 import { Header } from '../layouts/Header.layout';
+import { Footer } from '../layouts/Footer.layout';
 import Tasks from '../features/tasks/Tasks';
 import NotePad from '../features/notepad/NotePad';
-import { Footer } from '../layouts/Footer.layout';
 
 export default function Home(): JSX.Element {
   return (
-    <div className={styles.container} data-tid="container">
+    <div data-tid="container">
       <Header />
       <div className="container">
         <Tasks />

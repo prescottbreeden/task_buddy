@@ -6,7 +6,8 @@
 @import './features/notepad/Notepad.scss';
 @import './features/input/Input.scss';
 @import './features/tasks/Tasks.scss';
-@import './features/upload/Upload.scss';
+@import './features/fileUploader/FileUploader.scss';
+@import './features/uploadButton/UploadButton.scss';
 
 * {
   margin: 0;
@@ -21,6 +22,9 @@ body {
   color: #eee;
   font-size: 1.6rem;
   font-family: 'Source Code Pro', monospace;
+}
+a {
+  text-decoration: none;
 }
 .create-event {
   width: 100%;
