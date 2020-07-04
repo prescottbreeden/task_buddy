@@ -4,6 +4,7 @@ import { getCurrentTask, getTasks } from "../../redux/selectors/tasks.selectors"
 import { setTasks } from "../../redux/actions/tasks.actions";
 import { TaskType } from "../../types/TaskType.type";
 import { buildOnChange, renderData, noBlank } from "../../utils/misc";
+import sadPanda from '../../../resources/panda.png';
 import ReactHtmlParser from 'react-html-parser';
 import Textarea from "../textarea/Textarea";
 import Input from "../input/Input";
@@ -66,7 +67,14 @@ const NotePad: React.FC<NotePadProps> = (props) => {
         className="notepad__description"
         style={viewCard("description")}
       >
-        { ReactHtmlParser(render('description')) }
+        {task && task.description ? (
+          ReactHtmlParser(render('description'))
+        ) : (
+          <div className="sad-panda">
+            <h2>Nobody gave me a description...</h2>
+            <img src={sadPanda} alt="Sad Panda" />
+          </div>
+        )}
       </div>
       <div
         className="notepad__header"

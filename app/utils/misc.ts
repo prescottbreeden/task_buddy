@@ -110,7 +110,7 @@ const getOriginalEstimate = (task: any) => {
 };
 const getDescription = (task: any) => {
   const description = task.Description;
-  return description ? description : 'type to edit';
+  return description ? description : undefined;
 };
 
 export const parseDataFromCSV = (tasks: any[]): TaskType[] => {
@@ -135,3 +135,4 @@ export const parseDataFromCSV = (tasks: any[]): TaskType[] => {
   })
 
 }
+
