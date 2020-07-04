@@ -4,6 +4,7 @@ import { getCurrentTask, getTasks } from "../../redux/selectors/tasks.selectors"
 import { setTasks } from "../../redux/actions/tasks.actions";
 import { TaskType } from "../../types/TaskType.type";
 import { buildOnChange, renderData, noBlank } from "../../utils/misc";
+import ReactHtmlParser from 'react-html-parser';
 import Textarea from "../textarea/Textarea";
 import Input from "../input/Input";
 import Icon from "../icon/Icon";
@@ -61,18 +62,12 @@ const NotePad: React.FC<NotePadProps> = (props) => {
       >
         <h3 className="notepad__title">Description</h3>
       </div>
-      <div className="notepad__description">
-        <pre>
-          {render('description')}
-        </pre>
+      <div 
+        className="notepad__description"
+        style={viewCard("description")}
+      >
+        { ReactHtmlParser(render('description')) }
       </div>
-      {/* <Textarea */}
-      {/*   name="description" */}
-      {/*   onChange={onChange(task)} */}
-      {/*   className="notepad__description" */}
-      {/*   value={render('description')} */}
-      {/*   style={viewCard("description")} */}
-      {/* /> */}
       <div
         className="notepad__header"
         onClick={() => handleCardChange("notes")}

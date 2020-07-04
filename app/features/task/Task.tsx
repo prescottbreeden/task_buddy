@@ -79,8 +79,8 @@ const Task: React.FC<TaskProps> = (props) => {
   const render = renderData(task);
 
   const getTimeClass = () => {
-    return isCurrentTask()
-      ? 'tasks__time tasks__time--focused'
+    return task.isActive
+      ? 'tasks__time tasks__time--active'
       : 'tasks__time';
   }
 
