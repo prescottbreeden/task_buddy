@@ -8,6 +8,7 @@
 @import './features/tasks/Tasks.scss';
 @import './features/fileUploader/FileUploader.scss';
 @import './features/uploadButton/UploadButton.scss';
+@import './features/menuButton/MenuButton.scss';
 
 * {
   margin: 0;
@@ -70,15 +71,20 @@ a {
   text-align: center;
   width: 100%;
   color: rgba(238, 238, 238, 0.8);
-  height: 5rem;
-  font-size: 1.4rem;
-  font-weight: 100;
+  height: 8rem;
+
+  &__text {
+    font-size: 1.8rem;
+    line-height: 8rem;
+  }
 }
 .header {
+  h1 {
+    font-size: 4rem;
+    color: steelblue;
+  }
   padding: 1rem;
   width: 100%;
-  font-size: 2rem;
-  color: steelblue;
   height: 8rem;
   display: flex;
   justify-content: space-between;
@@ -90,8 +96,10 @@ a {
 .container {
   display: flex;
   border: 1px solid yellow;
-  height: calc(100vh - 14rem);
+  height: calc(100vh - 8rem);
   width: 100%;
   overflow: hidden;
 }
+
+
 

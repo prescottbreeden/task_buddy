@@ -6,8 +6,8 @@ import {Link} from 'react-router-dom';
 const UploadButton: FC = () => {
   /* const openWindow = () => ipcRenderer.send('upload-window:open'); */
   return (
-    <Link to="/upload" target="_blank">
-      <div className="upload" onClick={() => console.log('clicked')}>
+    <Link to="/upload" target="_blank" tabIndex={-1}>
+      <div tabIndex={0} className="upload" onClick={() => console.log('clicked')}>
         <Icon title="file-upload" className="upload__icon" />
         <p>Upload .CSV file</p>
       </div>

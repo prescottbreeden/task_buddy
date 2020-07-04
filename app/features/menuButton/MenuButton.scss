@@ -1,0 +1,23 @@
+.menuButton {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  display: flex;
+  align-items: center;
+  border: 1px solid steelblue;
+  border-radius: 2px;
+  background-color: transparent;
+  color: steelblue;
+  font-size: 2rem;
+  font-weight: 500;
+  padding: 0 2rem;
+  height: 5.5rem;
+  transition: all .2s;
+
+  &:hover {
+    background-color: steelblue;
+    color: #eee;
+    cursor: pointer;
+  }
+
+}

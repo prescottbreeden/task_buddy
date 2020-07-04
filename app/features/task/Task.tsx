@@ -56,7 +56,6 @@ const Task: React.FC<TaskProps> = (props) => {
     }
   };
 
-
   const toggleActive = () => {
     if (!task.isActive) {
       setSession(new Date().getTime());
@@ -113,7 +112,6 @@ const Task: React.FC<TaskProps> = (props) => {
           {getTime(task.accumulatedTime)}
           {!task.completed && 
             <div 
-              tabIndex={0}
               role="button"
               onClick={toggleActive}
               className="tasks__icon"
@@ -121,7 +119,11 @@ const Task: React.FC<TaskProps> = (props) => {
               {!task.isActive ? (
                 <Icon title="play" className="tasks__icon--svg play" />
               ) : (
-                <Icon title="pause" className="tasks__icon--svg pause" />
+                <Icon 
+                  animationClass="play-animation"
+                  title="pause"
+                  className="tasks__icon--svg pause"
+                />
               )}
             </div>
           }
@@ -130,7 +132,6 @@ const Task: React.FC<TaskProps> = (props) => {
           {!task.completed && (
             <div
               aria-checked
-              tabIndex={0}
               role="checkbox"
               onClick={toggleComplete}
               onKeyDown={() => null}
@@ -142,7 +143,6 @@ const Task: React.FC<TaskProps> = (props) => {
           {task.completed && (
             <div
               aria-checked
-              tabIndex={0}
               role="checkbox"
               onClick={toggleComplete}
               onKeyDown={() => null}
@@ -152,7 +152,6 @@ const Task: React.FC<TaskProps> = (props) => {
             </div>
           )}
           <div
-            tabIndex={0}
             role="button"
             onClick={removeTask}
             onKeyDown={() => null}

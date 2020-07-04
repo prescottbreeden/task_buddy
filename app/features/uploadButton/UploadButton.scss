@@ -1,15 +1,26 @@
 .upload {
-  border: 1px solid steelblue;
-  border-radius: 2px;
   display: flex;
   align-items: center;
+  border: 1px solid steelblue;
+  border-radius: 2px;
   text-transform: capitalize;
   padding: 1rem 2rem;
   color: steelblue;
   text-decoration: none;
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  font-size: 2rem;
+  font-weight: 500;
+  height: 5.5rem;
+  transition: all .2s;
+  fill: steelblue;
 
   &:hover {
+    background-color: steelblue;
+    color: #eee;
     cursor: pointer;
+    fill: #eee;
   }
 
   p {
@@ -24,7 +35,6 @@
   &__icon {
     height: 3rem;
     width: 3rem;
-    fill: steelblue;
   }
 
 }

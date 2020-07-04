@@ -128,8 +128,11 @@
   .play:hover {
     fill: green;
   }
-  .pause:hover {
-    fill: #b33000;
+  .pause {
+    fill: orange;
+    &:hover {
+      fill: #b33000 !important;
+    }
   }
   .add {
     margin: 1.6rem 1rem;
@@ -153,4 +156,13 @@
   &__btn:hover {
     cursor: pointer;
   }
+}
+.play-animation {
+  animation: playing 1.3s infinite;
+}
+
+@keyframes playing {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
 }
