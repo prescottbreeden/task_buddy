@@ -1,4 +1,7 @@
 .upload {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
   display: flex;
   align-items: center;
   border: 1px solid steelblue;
@@ -7,9 +10,6 @@
   padding: 1rem 2rem;
   color: steelblue;
   text-decoration: none;
-  position: absolute;
-  bottom: 1rem;
-  right: 1rem;
   font-size: 2rem;
   font-weight: 500;
   height: 5.5rem;
