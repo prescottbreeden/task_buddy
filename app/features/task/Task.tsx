@@ -5,9 +5,9 @@ import { TaskType } from '../../types/TaskType.type';
 import { setCurrentTask } from '../../redux/actions/currenttask.actions';
 import { getCurrentTask } from '../../redux/selectors/tasks.selectors';
 import { deleteTask } from '../../redux/actions/tasks.actions';
+import {renderData} from '../../utils/misc';
 import Input from '../input/Input';
 import Icon from '../icon/Icon';
-import {renderData} from '../../utils/misc';
 
 interface TaskProps {
   onChange: Function;
@@ -102,10 +102,10 @@ const Task: React.FC<TaskProps> = (props) => {
           value={render('title').replace(/(\r\n\t|\n|\r\t)/gm,"")}
         />
         <Input
-          name="relatedFeature"
+          name="iterationPath"
           className="tasks__input"
           onChange={onChange(task)}
-          value={task && task.relatedFeature}
+          value={render('iterationPath')}
         />
       </div>
       <div className="tasks__options">
@@ -155,7 +155,7 @@ const Task: React.FC<TaskProps> = (props) => {
             tabIndex={0}
             role="button"
             onClick={removeTask}
-            onKeyDown={() => console.log('fuck')}
+            onKeyDown={() => null}
             className="tasks__icon"
           >
             <Icon title="trash" className="tasks__icon--svg trash" />

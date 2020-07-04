@@ -40,6 +40,7 @@ $label-width: 15rem;
     letter-spacing: 1px;
     resize: none;
     transition: all .5s;
+    overflow-y: scroll;
   }
   &__stats {
     color: black;

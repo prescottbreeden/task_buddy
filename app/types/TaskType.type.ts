@@ -2,6 +2,7 @@ import {newId} from "../utils/misc";
 
 export interface TaskType {
   id: string;
+  acceptanceCriteria?: string;
   accumulatedTime: number;
   assignedTo?: string;
   completed: boolean;

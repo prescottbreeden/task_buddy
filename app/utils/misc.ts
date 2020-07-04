@@ -112,12 +112,16 @@ const getDescription = (task: any) => {
   const description = task.Description;
   return description ? description : undefined;
 };
+const getAcceptanceCriteria = (task: any) => {
+  const acceptanceCriteria = task['Acceptance Criteria'];
+  return acceptanceCriteria ? acceptanceCriteria : undefined;
+};
 
 export const parseDataFromCSV = (tasks: any[]): TaskType[] => {
   return tasks.map((task: any) => {
-    console.log(task);
     return {
       ...emptyTask(),
+      acceptanceCriteria: getAcceptanceCriteria(task),
       assignedTo: getAssignedTo(task),
       createdBy: getCreatedBy(task),
       createdDate: getCreatedDate(task),

@@ -4,7 +4,7 @@ import { getCurrentTask, getTasks } from "../../redux/selectors/tasks.selectors"
 import { setTasks } from "../../redux/actions/tasks.actions";
 import { TaskType } from "../../types/TaskType.type";
 import { buildOnChange, renderData, noBlank } from "../../utils/misc";
-import sadPanda from '../../../resources/panda.png';
+import sadPanda from "../../assets/panda.png";
 import ReactHtmlParser from 'react-html-parser';
 import Textarea from "../textarea/Textarea";
 import Input from "../input/Input";
@@ -21,7 +21,7 @@ const NotePad: React.FC<NotePadProps> = (props) => {
   const onChange = buildOnChange<TaskType>(tasks, "id", setTasks, dispatch);
 
   const [card, setCard] = useState("stats");
-  const cards = ["description", "notes", "stats"];
+  const cards = ["notes", "description", "stats"];
 
   const handleCardChange = (view: string) => {
     if (card === view) {
@@ -59,6 +59,19 @@ const NotePad: React.FC<NotePadProps> = (props) => {
     <div className="notepad">
       <div
         className="notepad__header"
+        onClick={() => handleCardChange("notes")}
+      >
+        <h3 className="notepad__title">Notepad</h3>
+      </div>
+      <Textarea
+        name="notes"
+        onChange={onChange(task)}
+        className="notepad__notes"
+        value={render('notes')}
+        style={viewCard("notes")}
+      />
+      <div
+        className="notepad__header"
         onClick={() => handleCardChange("description")}
       >
         <h3 className="notepad__title">Description</h3>
@@ -78,22 +91,9 @@ const NotePad: React.FC<NotePadProps> = (props) => {
       </div>
       <div
         className="notepad__header"
-        onClick={() => handleCardChange("notes")}
-      >
-        <h3 className="notepad__title">Notepad</h3>
-      </div>
-      <Textarea
-        name="notes"
-        onChange={onChange(task)}
-        className="notepad__notes"
-        value={render('notes')}
-        style={viewCard("notes")}
-      />
-      <div
-        className="notepad__header"
         onClick={() => handleCardChange("stats")}
       >
-        <h3 className="notepad__title">Info</h3>
+        <h3 className="notepad__title">Details</h3>
       </div>
       <div className="notepad__stats" style={viewCard("stats")}>
         {task && 
@@ -116,12 +116,22 @@ const NotePad: React.FC<NotePadProps> = (props) => {
                 {render('id').toUpperCase()}
               </p>
             </div>
-            <div className="notepad__row">
-              <p className="notepad__label">Work Item Type</p>
-              <p className="notepad__stat">
-                {render('workItemType')}
-              </p>
-            </div>
+            {task.iterationPath && 
+              <div className="notepad__row">
+                <p className="notepad__label">Iteration Path</p>
+                <p className="notepad__stat">
+                  {render('iterationPath')}
+                </p>
+              </div>
+            }
+            {task.workItemType && 
+              <div className="notepad__row">
+                <p className="notepad__label">Work Item Type</p>
+                <p className="notepad__stat">
+                  {render('workItemType')}
+                </p>
+              </div>
+            }
             {task.priority && 
               <div className="notepad__row">
                 <p className="notepad__label">Priority</p>

@@ -2,6 +2,7 @@ import { BaseAction } from "../../types/BaseAction.type";
 import {SET_TASKS, setTasks} from "../actions/tasks.actions";
 import {ipcRenderer, IpcRendererEvent} from "electron";
 import {parseDataFromCSV} from "../../utils/misc";
+import {TaskType} from "../../types/TaskType.type";
 
 export const tasksMiddleware = () => (next: Function) => (
   action: BaseAction
@@ -9,8 +10,9 @@ export const tasksMiddleware = () => (next: Function) => (
   next(action);
 
   ipcRenderer.on('file:parsed', (event: IpcRendererEvent, data: any) => {
-    const tasks = parseDataFromCSV(data);
-    console.log(tasks);
+    console.log(event);
+    const all = parseDataFromCSV(data);
+    const tasks = all.filter((item: TaskType) => item.workItemType === 'Task');
     next(setTasks(tasks));
   });
 

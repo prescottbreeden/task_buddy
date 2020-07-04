@@ -9,7 +9,6 @@ export const currentTaskMiddleware = () => (next: Function) => (
 
   switch (action.type) {
     case SET_CURRENT_TASK:
-      console.log('currentTask:set', action.payload);
       ipcRenderer.send('currentTask:set', action.payload);
   }
 };

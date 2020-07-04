@@ -9,9 +9,7 @@ export const fileMiddleware = () => (next: Function) => (
 
   switch (action.type) {
     case UPLOAD_FILE:
-      console.log('first file', action.payload[0]);
       const file = action.payload[0];
-      console.log('file:upload', file.path);
       ipcRenderer.send('file:upload', file.path);
   }
 };

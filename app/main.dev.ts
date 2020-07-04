@@ -9,7 +9,7 @@
  * `./app/main.prod.js` using webpack. This gives us some performance wins.
  */
 import path from 'path';
-import { app, BrowserWindow, ipcMain } from 'electron';
+import { app, BrowserWindow, ipcMain, shell, IpcMainEvent } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import csv from 'csv-parser';
 import fs from 'fs';
@@ -92,6 +92,13 @@ const createWindow = async () => {
     mainWindow = null;
   });
 
+  mainWindow.webContents.on('will-navigate', (e: any, url: string) => {
+    if (url != mainWindow?.webContents.getURL()) {
+      e.preventDefault();
+      shell.openExternal(url);
+    }
+  });
+
   const menuBuilder = new MenuBuilder(mainWindow);
   menuBuilder.buildMenu();
 
@@ -120,11 +127,8 @@ app.on('activate', () => {
   if (mainWindow === null) createWindow();
 });
 
-ipcMain.on('currentTask:set', (event: any, args: any) => {
-  console.log('currentTask:set', args);
-});
-
-ipcMain.on('file:upload', (event: any, file: string) => {
+ipcMain.on('file:upload', (event: IpcMainEvent, file: string) => {
+  event.preventDefault();
   const results: any[] = [];
   fs.createReadStream(file)
     .pipe(csv())
@@ -133,3 +137,4 @@ ipcMain.on('file:upload', (event: any, file: string) => {
       mainWindow?.webContents.send('file:parsed', results);
     });
 });
+
