@@ -60,3 +60,7 @@ export const getAcceptanceCriteria = (task: any) => {
   const acceptanceCriteria = task['Acceptance Criteria'];
   return acceptanceCriteria ? acceptanceCriteria : undefined;
 };
+export const getParent = (task: any) => {
+  const parent = task['Parent'];
+  return parent ? parent : undefined;
+};

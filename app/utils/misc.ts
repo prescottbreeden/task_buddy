@@ -1,4 +1,4 @@
-import { map, pipe, prop, findIndex, curry } from 'ramda';
+import { find, map, pipe, prop, findIndex, curry } from 'ramda';
 import { BaseAction } from '../types/BaseAction.type';
 import {TaskType, emptyTask} from '../types/TaskType.type';
 import {
@@ -6,7 +6,7 @@ import {
   getAssignedTo,
   getCreatedBy,
   getCreatedDate,
-  getDescription,
+  getDevOpsDescription,
   getId,
   getIterationPath,
   getOriginalEstimate,
@@ -16,7 +16,7 @@ import {
   getTags,
   getTitle,
   getWorkItemType,
-  getDevOpsDescription
+  getParent,
 } from './orm';
 
 export const mergeObjects = <T>(obj1: T) => (obj2: Partial<T>): T => ({
@@ -75,6 +75,18 @@ export const noBlank = (bob: string) => {
   return bob ? bob : '-';
 };
 
+const generateDescription = (tasks: any[], task: any) => {
+  if ('Parent' in task) {
+    const parentTask = find((t: any) => getId(t) === getParent(task), tasks);
+    if (parentTask) {
+      return getTitle(parentTask);
+    }
+  }
+  return getParent(task) ? 
+    `Parent ID: ${getParent(task)}` :
+    'No Parent Item Found';
+}
+
 
 export const parseDataFromCSV = (tasks: any[]): TaskType[] => {
   return tasks.map((task: any) => {
@@ -84,10 +96,12 @@ export const parseDataFromCSV = (tasks: any[]): TaskType[] => {
       assignedTo: getAssignedTo(task),
       createdBy: getCreatedBy(task),
       createdDate: getCreatedDate(task),
+      description: generateDescription(tasks, task),
       devOpsDescription: getDevOpsDescription(task),
       id: getId(task),
       iterationPath: getIterationPath(task),
       originalEstimate: getOriginalEstimate(task),
+      parent: getParent(task),
       priority: getPriority(task),
       reproSteps: getReproSteps(task),
       severity: getSeverity(task),

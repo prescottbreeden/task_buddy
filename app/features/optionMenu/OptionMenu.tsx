@@ -86,6 +86,14 @@ const OptionMenu: FC<ApplicationState> = ({
             </div>
             <div className="options-menu__row">
               <Checkbox 
+                checked={sortBy === 'parent'}
+                onClick={() => sort('parent')}
+                tooltip="Select to sort by parent."
+              />
+              <p className={labelClsName(sortBy === 'title')}>Parent</p>
+            </div>
+            <div className="options-menu__row">
+              <Checkbox 
                 checked={sortBy === 'priority'}
                 onClick={() => sort('priority')}
                 tooltip="Select to sort in order of highest priority."
