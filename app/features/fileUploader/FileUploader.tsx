@@ -1,24 +1,28 @@
 import React, { FC, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { uploadFile } from "../../redux/actions/file.actions";
-import { useDispatch } from "react-redux";
-import {remote} from 'electron';
+import {updateApplication} from '../../redux/actions/application.actions';
+import {useDispatch, connect} from 'react-redux';
+import {getUploadState} from '../../redux/selectors/application.selectors';
 
-const FileUploader: FC = () => {
+const FileUploader: FC = ({ upload }: any) => {
   const dispatch = useDispatch();
   const handleCSV = (acceptedFiles: any) => {
     if (!acceptedFiles) return;
     dispatch(uploadFile(acceptedFiles));
+    dispatch(updateApplication({ upload: false }))
   }
-  const onDrop = useCallback(acceptedFiles => {
-    handleCSV(acceptedFiles)
-    const currWindow = remote.getCurrentWindow();
-    currWindow.close();
-  }, []);
+  const onDrop = useCallback(handleCSV, []);
   const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
 
+  const clsName = () => {
+    return upload ?
+      "dropzone__container open-dropzone" :
+      "dropzone__container";
+  }
+
   return (
-    <div className="dropzone__container">
+    <div className={clsName()}>
       <div {...getRootProps()} className="dropzone">
         <input {...getInputProps()} />
         {
@@ -35,4 +39,9 @@ const FileUploader: FC = () => {
   )
 };
 
-export default FileUploader;
+const mapStateToProps = (state: any) => {
+  const upload = getUploadState(state);
+  return { upload };
+}
+
+export default connect(mapStateToProps)(FileUploader);

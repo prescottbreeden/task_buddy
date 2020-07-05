@@ -1,18 +1,23 @@
 import React, { FC } from 'react';
 import Icon from '../icon/Icon';
-import {Link} from 'react-router-dom';
-/* import {ipcRenderer} from 'electron'; */
+import {useDispatch, connect} from 'react-redux';
+import {updateApplication} from '../../redux/actions/application.actions';
+import {getUploadState} from '../../redux/selectors/application.selectors';
 
-const UploadButton: FC = () => {
-  /* const openWindow = () => ipcRenderer.send('upload-window:open'); */
+const UploadButton: FC = ({ upload }: any) => {
+  const dispatch = useDispatch();
+  const toggleUpload = () => dispatch(updateApplication({ upload: !upload }));
   return (
-    <Link to="/upload" target="_blank" tabIndex={-1}>
-      <div tabIndex={0} className="upload" onClick={() => console.log('clicked')}>
-        <Icon title="file-upload" className="upload__icon" />
-        <p>Upload .CSV file</p>
-      </div>
-    </Link>
+    <div tabIndex={0} className="upload" onClick={toggleUpload}>
+      <Icon title="file-upload" className="upload__icon" />
+      <p>Upload .CSV file</p>
+    </div>
   );
 }
 
-export default UploadButton;
+const mapStateToProps = (state: any) => {
+  const upload = getUploadState(state);
+  return { upload };
+}
+
+export default connect(mapStateToProps)(UploadButton);

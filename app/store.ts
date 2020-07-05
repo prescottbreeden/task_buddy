@@ -2,10 +2,10 @@ import { configureStore, Action } from '@reduxjs/toolkit';
 import { createHashHistory } from 'history';
 import { ThunkAction } from 'redux-thunk';
 // eslint-disable-next-line import/no-cycle
-import createRootReducer from './rootReducer';
 import { tasksMiddleware } from './redux/middleware/tasks.middleware';
 import {currentTaskMiddleware} from './redux/middleware/currentTask.middleware';
 import {fileMiddleware} from './redux/middleware/file.middleware';
+import createRootReducer from './rootReducer';
 
 export const history = createHashHistory();
 const rootReducer = createRootReducer(history);
