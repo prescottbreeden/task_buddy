@@ -10,6 +10,7 @@ export interface TaskType {
   createdBy?: string;
   createdDate: Date;
   description: string;
+  devOpsDescription?: string;
   isActive: boolean;
   iterationPath?: string;
   notes: string;

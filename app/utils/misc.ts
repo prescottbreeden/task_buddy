@@ -15,7 +15,8 @@ import {
   getSeverity,
   getTags,
   getTitle,
-  getWorkItemType
+  getWorkItemType,
+  getDevOpsDescription
 } from './orm';
 
 export const mergeObjects = <T>(obj1: T) => (obj2: Partial<T>): T => ({
@@ -83,7 +84,7 @@ export const parseDataFromCSV = (tasks: any[]): TaskType[] => {
       assignedTo: getAssignedTo(task),
       createdBy: getCreatedBy(task),
       createdDate: getCreatedDate(task),
-      description: getDescription(task),
+      devOpsDescription: getDevOpsDescription(task),
       id: getId(task),
       iterationPath: getIterationPath(task),
       originalEstimate: getOriginalEstimate(task),

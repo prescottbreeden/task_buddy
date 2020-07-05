@@ -5,7 +5,12 @@ import {ApplicationState} from '../../types/ApplicationState.type';
 import Checkbox from '../checkbox/Checkbox';
 import Icon from '../icon/Icon';
 
-const OptionMenu: FC<ApplicationState> = ({ options, filters, sortBy }) => {
+const OptionMenu: FC<ApplicationState> = ({ 
+  devOps,
+  options,
+  filters,
+  sortBy
+}) => {
   const dispatch = useDispatch();
   const handleClose = () => dispatch(updateApplication({ options: !options }));
 
@@ -113,14 +118,25 @@ const OptionMenu: FC<ApplicationState> = ({ options, filters, sortBy }) => {
             </div>
           </div>
         </div>
+        <div className="options-menu__header">
+          <p className="options-menu__title">Microsoft DevOps</p>
+        </div>
+        <div className="options-menu__row">
+          <Checkbox
+            checked={!devOps}
+            onClick={() => dispatch(updateApplication({ devOps: !devOps }))} 
+            tooltip="Select to disable DevOps defaults."
+          />
+          <p className={labelClsName(!devOps)}>Disable DevOps Defaults</p>
+        </div>
       </div>
     </div>
   )
 };
 
 const mapStateToProps = (state: any) => {
-  const { options, filters, sortBy } = state.application;
-  return { options, filters, sortBy };
+  const { devOps, options, filters, sortBy } = state.application;
+  return { devOps, options, filters, sortBy };
 }
 
 export default connect(mapStateToProps)(OptionMenu);

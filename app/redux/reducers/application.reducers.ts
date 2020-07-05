@@ -1,14 +1,15 @@
 import {UPDATE_APPLICATION} from "../actions/application.actions";
 
 const initState = {
-  options: false,
-  upload: false,
+  devOps: true,
   filters: {
     Bug: true,
     Task: true,
     ['User Story']: false,
   },
-  sortBy: ''
+  options: false,
+  sortBy: '',
+  upload: false,
 };
 
 export const applicationReducer = (appState = initState, action: any) => {

@@ -52,6 +52,10 @@ export const getDescription = (task: any) => {
   const description = task.Description;
   return description ? description : undefined;
 };
+export const getDevOpsDescription = (task: any) => {
+  const devOpsDescription = task.Description;
+  return devOpsDescription ? devOpsDescription : undefined;
+};
 export const getAcceptanceCriteria = (task: any) => {
   const acceptanceCriteria = task['Acceptance Criteria'];
   return acceptanceCriteria ? acceptanceCriteria : undefined;

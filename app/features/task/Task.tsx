@@ -119,10 +119,10 @@ const Task: React.FC<TaskProps> = (props) => {
           value={render('title').replace(/(\r\n\t|\n|\r\t)/gm,"")}
         />
         <Input
-          name="iterationPath"
+          name="description"
           className="tasks__input"
           onChange={onChange}
-          value={render('iterationPath')}
+          value={render('description')}
         />
       </div>
       <div className="tasks__options">

@@ -24,7 +24,7 @@ const Tasks: React.FC<TasksProps> = (props) => {
     <div className="tasks">
       <div className="tasks__header">
         <div className="tasks__col tasks__description">
-          <p className="tasks__title">Tasks to complete</p>
+          <p className="tasks__title">Work Items</p>
         </div>
         <div className="tasks__options">
           <div className="tasks__col tasks__time">
