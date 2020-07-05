@@ -8,7 +8,7 @@ const initState = {
     ['User Story']: false,
   },
   options: false,
-  sortBy: '',
+  sortBy: 'parent',
   upload: false,
 };
 
