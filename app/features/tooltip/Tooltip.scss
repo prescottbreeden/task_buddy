@@ -1,0 +1,36 @@
+.tooltip {
+  position: relative;
+  display: flex;
+  height: 100%;
+}
+.tooltip .tooltiptext {
+  z-index: 1;
+  position: absolute;
+  visibility: hidden;
+  margin-left: -60px;
+  left: 50%;
+  bottom: 125%;
+  border-radius: 6px;
+  opacity: 0;
+  padding: 1.25rem;
+  text-align: left;
+  font-size: 2rem;
+  transition: opacity 0.3s;
+  background-color: $color-low-dark;
+  color: $color-white;
+
+  &--long {
+    width: 64rem;
+  }
+
+  &--short {
+    max-width: 64rem;
+    white-space: nowrap;
+  }
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+

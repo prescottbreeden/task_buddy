@@ -1,0 +1,24 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@200;300;400;500;700&display=swap");
+
+html {
+  font-size: 62.5%;
+
+  @include respond(big-desktop) {
+    font-size: 75%;
+  }
+
+  @include respond(med-desktop) {
+    font-size: 54%;
+  }
+  @include respond(tab-land) {
+    font-size: 45%;
+  }
+}
+body {
+  color: #eee;
+  font-size: 1.6rem;
+  font-family: 'Source Code Pro', monospace;
+}
+a {
+  text-decoration: none;
+}
