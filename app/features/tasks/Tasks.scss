@@ -1,3 +1,21 @@
+$color-red: #b33000;
+$color-blue: #5fb3ce;
+$color-green: green;
+$color-yellow: yellow;
+
+.task-type {
+  &--task {
+    color: $color-yellow !important;
+  }
+  &--bug {
+    color: $color-red !important;
+  }
+  &--completed {
+    color: $color-green !important;
+  }
+}
+
+
 .tasks {
   width: 100%;
   overflow-y: scroll;
@@ -61,9 +79,9 @@
     margin: 0 1rem;
   }
   &__input--title {
-    color: #5fb3ce;
+    color: $color-blue;
     font-size: 2rem;
-    font-weight: 500;
+    font-weight: 400;
     margin-bottom: .5rem;
   }
   &__actions {
@@ -131,7 +149,7 @@
   .pause {
     fill: orange;
     &:hover {
-      fill: #b33000 !important;
+      fill: #b33000;
     }
   }
   .add {

@@ -81,7 +81,24 @@ const Task: React.FC<TaskProps> = (props) => {
     return task.isActive
       ? 'tasks__time tasks__time--active'
       : 'tasks__time';
-  }
+  };
+
+  const getTitleClass = () => {
+    const defaultClass = "tasks__input tasks__input--title";
+    const { workItemType } = task;
+    if (!workItemType) return defaultClass;
+    switch (workItemType) {
+      case 'Task':
+        return `${defaultClass} task-type--task`;
+      case 'Bug':
+        return `${defaultClass} task-type--bug`;
+      case 'User Story':
+        return `${defaultClass} task-type--story`;
+
+      default:
+        return defaultClass;
+    }
+  };
 
   useEffect(() => {
     ipcRenderer.send('test', 'ping');
@@ -96,7 +113,7 @@ const Task: React.FC<TaskProps> = (props) => {
       <div className="tasks__description">
         <Input
           name="title"
-          className="tasks__input tasks__input--title"
+          className={getTitleClass()}
           onChange={onChange(task)}
           value={render('title').replace(/(\r\n\t|\n|\r\t)/gm,"")}
         />
