@@ -3,8 +3,9 @@ import Icon from '../icon/Icon';
 import {useDispatch, connect} from 'react-redux';
 import {updateApplication} from '../../redux/actions/application.actions';
 import {getUploadState} from '../../redux/selectors/application.selectors';
+import {ApplicationState} from '../../types/ApplicationState.type';
 
-const UploadButton: FC = ({ upload }: any) => {
+const UploadButton: FC<ApplicationState> = ({ upload }) => {
   const dispatch = useDispatch();
   const toggleUpload = () => dispatch(updateApplication({ upload: !upload }));
   return (

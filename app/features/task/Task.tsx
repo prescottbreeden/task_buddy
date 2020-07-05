@@ -8,6 +8,7 @@ import { deleteTask } from '../../redux/actions/tasks.actions';
 import {renderData} from '../../utils/misc';
 import Input from '../input/Input';
 import Icon from '../icon/Icon';
+import Checkbox from '../checkbox/Checkbox';
 
 interface TaskProps {
   onChange: Function;
@@ -146,28 +147,7 @@ const Task: React.FC<TaskProps> = (props) => {
           }
         </div>
         <div className="tasks__actions">
-          {!task.completed && (
-            <div
-              aria-checked
-              role="checkbox"
-              onClick={toggleComplete}
-              onKeyDown={() => null}
-              className="tasks__icon"
-            >
-              <Icon title="unchecked" className="tasks__icon--svg" />
-            </div>
-          )}
-          {task.completed && (
-            <div
-              aria-checked
-              role="checkbox"
-              onClick={toggleComplete}
-              onKeyDown={() => null}
-              className="tasks__icon"
-            >
-              <Icon title="checked" className="tasks__icon--svg" />
-            </div>
-          )}
+          <Checkbox checked={task.completed} onClick={toggleComplete} />
           <div
             role="button"
             onClick={removeTask}
