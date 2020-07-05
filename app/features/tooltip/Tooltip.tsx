@@ -5,7 +5,7 @@ type TooltipComponentProps = {
   tooltip: string | JSX.Element;
 };
 
-export const Tooltip: React.FC<TooltipComponentProps> = (props) => {
+const Tooltip: React.FC<TooltipComponentProps> = (props) => {
   const { indicator, tooltip } = props;
 
   const tooltipClassName = () => {
@@ -24,3 +24,4 @@ export const Tooltip: React.FC<TooltipComponentProps> = (props) => {
   );
 };
 
+export default Tooltip;

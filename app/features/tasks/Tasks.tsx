@@ -3,22 +3,21 @@ import { connect, useDispatch } from "react-redux";
 import { TaskType, emptyTask } from "../../types/TaskType.type";
 import { getTasks } from "../../redux/selectors/tasks.selectors";
 import { buildOnChange } from "../../utils/misc";
-import { setTasks } from "../../redux/actions/tasks.actions";
+import { updateTasks } from "../../redux/actions/tasks.actions";
 import Task from "../task/Task";
 import Icon from "../icon/Icon";
 
 type TasksProps = {
-  tasks: TaskType[];
+  tasks: TaskType[] | any;
 };
 const Tasks: React.FC<TasksProps> = (props) => {
   const dispatch = useDispatch();
   const { tasks } = props;
 
-  const onChange = buildOnChange<TaskType>(tasks, "id", setTasks, dispatch);
+  const onChange = buildOnChange<TaskType>(updateTasks, dispatch);
 
   const createTask = () => {
-    const updated = [...tasks, emptyTask()];
-    dispatch(setTasks(updated));
+    dispatch(updateTasks(emptyTask()));
   }
 
   return (
@@ -38,7 +37,7 @@ const Tasks: React.FC<TasksProps> = (props) => {
       </div>
       {tasks &&
         tasks.map((task: any, index: number) => {
-          return <Task key={index} task={task} onChange={onChange} />;
+          return <Task key={index} task={task} onChange={onChange(task)} />;
         })}
       <div className="tasks__col tasks__icon--add">
         <div onClick={createTask} className="tasks__icon--btn">

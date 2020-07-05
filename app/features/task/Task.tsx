@@ -11,8 +11,8 @@ import Icon from '../icon/Icon';
 import Checkbox from '../checkbox/Checkbox';
 
 interface TaskProps {
-  onChange: Function;
-  currentTask: TaskType;
+  onChange: (data: any, key?: any, value?: any) => void;
+  currentTask: TaskType | any;
   task: TaskType;
 }
 
@@ -44,14 +44,14 @@ const Task: React.FC<TaskProps> = (props) => {
 
   const toggleComplete = () => {
     if (task.isActive) {
-      onChange && onChange(task)({
+      onChange && onChange({
         completed: true,
         isActive: false,
         accumulatedTime: getElapsed(),
       });
 
     } else {
-      onChange && onChange(task)({
+      onChange && onChange({
         completed: !task.completed,
       });
     }
@@ -60,9 +60,9 @@ const Task: React.FC<TaskProps> = (props) => {
   const toggleActive = () => {
     if (!task.isActive) {
       setSession(new Date().getTime());
-      onChange(task)({ isActive: !task.isActive })
+      onChange({ isActive: !task.isActive })
     } else {
-      onChange(task)({
+      onChange({
         accumulatedTime: getElapsed(),
         isActive: !task.isActive,
       });
@@ -115,13 +115,13 @@ const Task: React.FC<TaskProps> = (props) => {
         <Input
           name="title"
           className={getTitleClass()}
-          onChange={onChange(task)}
+          onChange={onChange}
           value={render('title').replace(/(\r\n\t|\n|\r\t)/gm,"")}
         />
         <Input
           name="iterationPath"
           className="tasks__input"
-          onChange={onChange(task)}
+          onChange={onChange}
           value={render('iterationPath')}
         />
       </div>
@@ -147,7 +147,11 @@ const Task: React.FC<TaskProps> = (props) => {
           }
         </div>
         <div className="tasks__actions">
-          <Checkbox checked={task.completed} onClick={toggleComplete} />
+          <Checkbox
+            checked={task.completed}
+            onClick={toggleComplete}
+            tooltip="Complete"
+          />
           <div
             role="button"
             onClick={removeTask}

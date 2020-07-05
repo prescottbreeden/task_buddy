@@ -14,6 +14,7 @@ export interface TaskType {
   iterationPath?: string;
   notes: string;
   originalEstimate?: string;
+  parent?: string;
   priority?: number;
   relatedFeature: string;
   severity?: string;
@@ -35,5 +36,6 @@ export const emptyTask = (): TaskType => {
     notes: "type to edit",
     originalEstimate: '0',
     relatedFeature: "type to edit",
+    workItemType: "Task",
   };
 };

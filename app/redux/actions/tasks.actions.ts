@@ -6,6 +6,7 @@ export const TASKS = "[Tasks]";
 // action types
 export const FETCH_TASKS = `${TASKS} FETCH`;
 export const SET_TASKS = `${TASKS} SET`;
+export const UPDATE_TASKS = `${TASKS} UPDATE`;
 export const DELETE_TASK = `${TASKS} DELETE`;
 
 // action creators
@@ -13,6 +14,13 @@ export const setTasks = (tasks: TaskType[]) => {
   return {
     type: SET_TASKS,
     payload: tasks,
+  };
+};
+
+export const updateTasks = (task: TaskType) => {
+  return {
+    type: UPDATE_TASKS,
+    payload: task,
   };
 };
 

@@ -46,6 +46,7 @@ const OptionMenu: FC<ApplicationState> = ({ options, filters, sortBy }) => {
               <Checkbox
                 checked={filters.Task}
                 onClick={() => toggle({ Task: !filters.Task })} 
+                tooltip="Select to display tasks on Dashboard."
               />
               <p className={labelClsName(filters.Task)}>Show Tasks</p>
             </div>
@@ -53,6 +54,7 @@ const OptionMenu: FC<ApplicationState> = ({ options, filters, sortBy }) => {
               <Checkbox
                 checked={filters.Bug}
                 onClick={() => toggle({ Bug: !filters.Bug })} 
+                tooltip="Select to display bugs on Dashboard."
               />
               <p className={labelClsName(filters.Bug)}>Show Bugs</p>
             </div>
@@ -60,6 +62,7 @@ const OptionMenu: FC<ApplicationState> = ({ options, filters, sortBy }) => {
               <Checkbox
                 checked={filters['User Story']}
                 onClick={() => toggle({ ['User Story']: !filters['User Story'] })} 
+                tooltip="Select to display user stories on Dashboard."
               />
               <p className={labelClsName(filters['User Story'])}>Show User Stories</p>
             </div>
@@ -72,6 +75,7 @@ const OptionMenu: FC<ApplicationState> = ({ options, filters, sortBy }) => {
               <Checkbox 
                 checked={sortBy === 'title'}
                 onClick={() => sort('title')}
+                tooltip="Select to sort titles A-Z."
               />
               <p className={labelClsName(sortBy === 'title')}>Title A-Z</p>
             </div>
@@ -79,6 +83,7 @@ const OptionMenu: FC<ApplicationState> = ({ options, filters, sortBy }) => {
               <Checkbox 
                 checked={sortBy === 'priority'}
                 onClick={() => sort('priority')}
+                tooltip="Select to sort in order of highest priority."
               />
               <p className={labelClsName(sortBy === 'priority')}>Priority</p>
             </div>
@@ -86,6 +91,7 @@ const OptionMenu: FC<ApplicationState> = ({ options, filters, sortBy }) => {
               <Checkbox
                 checked={sortBy === 'createdDate'}
                 onClick={() => sort('createdDate')}
+                tooltip="Select to sort in order of oldest created date."
               />
               <p className={labelClsName(sortBy === 'createdDate')}>Created Date</p>
             </div>
@@ -93,6 +99,7 @@ const OptionMenu: FC<ApplicationState> = ({ options, filters, sortBy }) => {
               <Checkbox
                 checked={sortBy === 'startedDate'}
                 onClick={() => sort('startedDate')}
+                tooltip="Select to sort in order of oldest started date."
               />
               <p className={labelClsName(sortBy === 'startedDate')}>Started Date</p>
             </div>
@@ -100,6 +107,7 @@ const OptionMenu: FC<ApplicationState> = ({ options, filters, sortBy }) => {
               <Checkbox
                 checked={sortBy === 'completedDate'}
                 onClick={() => sort('completedDate')} 
+                tooltip="Select to sort in order of oldest ompleted date."
               />
               <p className={labelClsName(sortBy === 'completedDate')}>Completed Date</p>
             </div>
