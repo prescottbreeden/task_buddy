@@ -29,7 +29,7 @@
     color: black;
     padding: 1rem;
     resize: none;
-    font-family: fantasy;
+    font-family: 'Lato', sans-serif;
     letter-spacing: 1px;
     transition: all .5s;
     overflow-y: auto;
@@ -39,7 +39,7 @@
     padding: 1rem;
     background-color: #eee;
     font-size: 1.6rem;
-    font-family: fantasy;
+    font-family: 'Lato', sans-serif;
     letter-spacing: 1px;
     resize: none;
     transition: all .5s;
@@ -50,7 +50,7 @@
     padding: 1rem;
     font-size: 1.6rem;
     background-color: transparent;
-    font-family: fantasy;
+    font-family: 'Lato', sans-serif;
     letter-spacing: 1px;
     resize: none;
     transition: all .5s;
@@ -102,7 +102,7 @@
   }
   &__input {
     background-color: transparent;
-    font-family: fantasy;
+    font-family: 'Lato', sans-serif;
     color: #eee;
     outline: none;
     border: 1px solid transparent;
@@ -115,7 +115,7 @@
   &__textarea {
     background-color: transparent;
     color: #eee;
-    font-family: fantasy;
+    font-family: 'Lato', sans-serif;
     font-size: 1.6rem;
     letter-spacing: .2px;
     outline: none;
