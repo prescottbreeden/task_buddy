@@ -12,7 +12,7 @@ import { autoUpdater } from 'electron-updater';
 import csv from 'csv-parser';
 import fs from 'fs';
 import log from 'electron-log';
-import MenuBuilder from './menu';
+// import MenuBuilder from './menu';
 
 export default class AppUpdater {
   constructor() {
@@ -43,12 +43,6 @@ if (
   require('electron-debug')();
 }
 
-const setAppIcon = () => {
-  return process.platform === 'darwin' ?
-    path.join(__dirname, '../resources/icon.icns') : 
-    path.join(__dirname, '../resources/icon.png');
-}
-
 
 // ===========================================================================
 //                              Main Window
@@ -57,8 +51,6 @@ const createWindow = async () => {
 
 
   mainWindow = new BrowserWindow({
-    icon: setAppIcon(),
-    title: 'My Task Buddy',
     show: false,
     maximizable: true,
     webPreferences:
@@ -67,13 +59,10 @@ const createWindow = async () => {
       process.env.ERB_SECURE !== 'true'
         ? {
             nodeIntegration: true,
-            backgroundThrottling: false,
             devTools: false,
           }
         : {
             preload: path.join(__dirname, 'dist/renderer.prod.js'),
-            backgroundThrottling: false,
-            devTools: false,
           },
   });
 
@@ -114,8 +103,8 @@ const createWindow = async () => {
     globalShortcut.unregister('CommandOrControl+F')
   })
 
-  const menuBuilder = new MenuBuilder(mainWindow);
-  menuBuilder.buildMenu();
+  // const menuBuilder = new MenuBuilder(mainWindow);
+  // menuBuilder.buildMenu();
 
   // Remove this if your app does not use auto updates
   // eslint-disable-next-line
@@ -128,15 +117,16 @@ const createWindow = async () => {
 app.on('window-all-closed', () => {
   // Respect the OSX convention of having the application in memory even
   // after all windows have been closed
+  globalShortcut.unregister('CommandOrControl+F')
   if (process.platform !== 'darwin') {
     app.quit();
   }
-  globalShortcut.unregister('CommandOrControl+F')
 });
 
-app.on('ready', createWindow);
+// app.on('ready', createWindow);
 
 app.whenReady().then(() => {
+  createWindow();
   tray = new Tray(path.join(__dirname, '../resources/icon.png'));
   tray.setToolTip('My Task Buddy');
   const contextMenu = Menu.buildFromTemplate([
