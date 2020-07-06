@@ -1,7 +1,6 @@
 import { configureStore, Action } from '@reduxjs/toolkit';
 import { createHashHistory } from 'history';
 import { ThunkAction } from 'redux-thunk';
-// eslint-disable-next-line import/no-cycle
 import { tasksMiddleware } from './redux/middleware/tasks.middleware';
 import {currentTaskMiddleware} from './redux/middleware/currentTask.middleware';
 import {fileMiddleware} from './redux/middleware/file.middleware';

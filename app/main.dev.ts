@@ -1,5 +1,3 @@
-/* eslint global-require: off, no-console: off */
-
 /**
  * This module executes inside of electron's main process. You can start
  * electron renderer process from here and communicate with the other processes
@@ -15,7 +13,6 @@ import csv from 'csv-parser';
 import fs from 'fs';
 import log from 'electron-log';
 import MenuBuilder from './menu';
-// import DataStorage from './DataStorage';
 
 export default class AppUpdater {
   constructor() {
@@ -46,16 +43,6 @@ if (
   require('electron-debug')();
 }
 
-const installExtensions = async () => {
-  const installer = require('electron-devtools-installer');
-  const forceDownload = !!process.env.UPGRADE_EXTENSIONS;
-  const extensions = ['REACT_DEVELOPER_TOOLS', 'REDUX_DEVTOOLS'];
-
-  return Promise.all(
-    extensions.map((name) => installer.default(installer[name], forceDownload))
-  ).catch(console.log);
-};
-
 const setAppIcon = () => {
   return process.platform === 'darwin' ?
     path.join(__dirname, '../resources/icon.icns') : 
@@ -67,12 +54,6 @@ const setAppIcon = () => {
 //                              Main Window
 // ===========================================================================
 const createWindow = async () => {
-  if (
-    process.env.NODE_ENV === 'development' ||
-    process.env.DEBUG_PROD === 'true'
-  ) {
-    await installExtensions();
-  }
 
 
   mainWindow = new BrowserWindow({
@@ -87,7 +68,7 @@ const createWindow = async () => {
         ? {
             nodeIntegration: true,
             backgroundThrottling: false,
-            // devTools: false,
+            devTools: false,
           }
         : {
             preload: path.join(__dirname, 'dist/renderer.prod.js'),
