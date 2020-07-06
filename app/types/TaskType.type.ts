@@ -28,7 +28,7 @@ export const emptyTask = (): TaskType => {
   return {
     accumulatedTime: 0,
     completed: false,
-    createdDate: new Date(Date.now()),
+    createdDate: new Date(),
     id: newId(),
     isActive: false,
     notes: "click to edit notes",

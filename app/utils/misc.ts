@@ -59,7 +59,7 @@ export const newId = () => Math.random().toString(36).substring(7);
 export const renderData = curry((data: any, property: string): string => {
   const bob = prop(property, data);
   if (bob && bob instanceof Date) {
-    return bob.toLocaleDateString();
+    return bob.toDateString();
   }
   if (bob && typeof bob === 'number') {
     return bob.toString().replace(/(\r\n\t|\n|\r\t)/gm,"");
