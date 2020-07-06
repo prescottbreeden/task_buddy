@@ -8,8 +8,8 @@
  * When running `yarn build` or `yarn build-main`, this file is compiled to
  * `./app/main.prod.js` using webpack. This gives us some performance wins.
  */
-import path, {dirname} from 'path';
-import { app, BrowserWindow, ipcMain, shell, IpcMainEvent } from 'electron';
+import path from 'path';
+import { app, BrowserWindow, globalShortcut, shell, ipcMain, IpcMainEvent } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import csv from 'csv-parser';
 import fs from 'fs';
@@ -121,6 +121,17 @@ const createWindow = async () => {
     }
   });
 
+  mainWindow.on('focus', () => {
+    globalShortcut.register('CommandOrControl+F', function () {
+      if (mainWindow && mainWindow.webContents) {
+        mainWindow.webContents.send('on-find', '')
+      }
+    })
+  })
+  mainWindow.on('blur', () => {
+    globalShortcut.unregister('CommandOrControl+F')
+  })
+
   const menuBuilder = new MenuBuilder(mainWindow);
   menuBuilder.buildMenu();
 
@@ -138,6 +149,7 @@ app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit();
   }
+  globalShortcut.unregister('CommandOrControl+F')
 });
 
 app.on('ready', createWindow);
@@ -158,3 +170,4 @@ ipcMain.on('file:upload', (event: IpcMainEvent, file: string) => {
       mainWindow?.webContents.send('file:parsed', results);
     });
 });
+

@@ -1,16 +1,10 @@
 import React, { FC } from 'react';
 import {updateApplication} from '../../redux/actions/application.actions';
 import {useDispatch, connect} from 'react-redux';
-import {ApplicationState} from '../../types/ApplicationState.type';
 import Checkbox from '../checkbox/Checkbox';
 import Icon from '../icon/Icon';
 
-const OptionMenu: FC<ApplicationState> = ({ 
-  devOps,
-  options,
-  filters,
-  sortBy
-}) => {
+const OptionMenu: FC = ({ devOps, options, filters, sortBy }: any) => {
   const dispatch = useDispatch();
   const handleClose = () => dispatch(updateApplication({ options: !options }));
 
