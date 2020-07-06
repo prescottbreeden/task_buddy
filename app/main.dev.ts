@@ -9,7 +9,7 @@
  * `./app/main.prod.js` using webpack. This gives us some performance wins.
  */
 import path from 'path';
-import { app, BrowserWindow, globalShortcut, shell, ipcMain, IpcMainEvent } from 'electron';
+import { app, BrowserWindow, globalShortcut, shell, ipcMain, IpcMainEvent, Tray, Menu } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import csv from 'csv-parser';
 import fs from 'fs';
@@ -29,6 +29,7 @@ export default class AppUpdater {
 // ===========================================================================
 
 let mainWindow: BrowserWindow | null = null;
+let tray = null;
 
 // ===========================================================================
 //                            Settings
@@ -153,6 +154,16 @@ app.on('window-all-closed', () => {
 });
 
 app.on('ready', createWindow);
+
+app.whenReady().then(() => {
+  tray = new Tray(path.join(__dirname, '../resources/icon.png'));
+  tray.setToolTip('My Task Buddy');
+  const contextMenu = Menu.buildFromTemplate([
+    { label: 'Minimize', type: 'normal', click: () => mainWindow?.minimize() },
+    { label: 'Maximize', type: 'normal', click: () => mainWindow?.maximize() },
+  ]);
+  tray.setContextMenu(contextMenu);
+});
 
 app.on('activate', () => {
   // On macOS it's common to re-create a window in the app when the
