@@ -1,6 +1,11 @@
 {
   "name": "my-task-buddy",
   "productName": "My Task Buddy",
+  "description": "Task tracking app with DevOps integration and timers.",
+  "author": {
+    "name": "Prescott Breeden",
+    "email": "prescott@amplifycp.com"
+  },
   "version": "1.2.0",
   "main": "./main.prod.js",
   "scripts": {
