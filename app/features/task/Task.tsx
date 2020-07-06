@@ -58,9 +58,15 @@ const Task: React.FC<TaskProps> = (props) => {
   };
 
   const toggleActive = () => {
+    const started = task.startedDate ?
+      task.startedDate :
+      new Date();
     if (!task.isActive) {
       setSession(new Date().getTime());
-      onChange({ isActive: !task.isActive })
+      onChange({
+        isActive: !task.isActive,
+        startedDate: started,
+      })
     } else {
       onChange({
         accumulatedTime: getElapsed(),
@@ -119,10 +125,10 @@ const Task: React.FC<TaskProps> = (props) => {
           value={render('title').replace(/(\r\n\t|\n|\r\t)/gm,"")}
         />
         <Input
-          name="description"
+          name="parent"
           className="tasks__input"
           onChange={onChange}
-          value={render('description')}
+          value={render('parent')}
         />
       </div>
       <div className="tasks__options">
@@ -135,12 +141,15 @@ const Task: React.FC<TaskProps> = (props) => {
               className="tasks__icon"
             >
               {!task.isActive ? (
-                <Icon title="play" className="tasks__icon--svg play" />
+                <Icon 
+                  className="tasks__icon--svg play" 
+                  title="play"
+                />
               ) : (
                 <Icon 
                   animationClass="play-animation"
-                  title="pause"
                   className="tasks__icon--svg pause"
+                  title="pause"
                 />
               )}
             </div>

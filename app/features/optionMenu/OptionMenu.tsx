@@ -90,7 +90,7 @@ const OptionMenu: FC<ApplicationState> = ({
                 onClick={() => sort('parent')}
                 tooltip="Select to sort by parent."
               />
-              <p className={labelClsName(sortBy === 'title')}>Parent</p>
+              <p className={labelClsName(sortBy === 'parent')}>Parent</p>
             </div>
             <div className="options-menu__row">
               <Checkbox 

@@ -136,6 +136,18 @@ const NotePad: React.FC<NotePadProps> = ({ devOps, task }) => {
               />
             </div>
             <div className="notepad__row">
+              <p className="notepad__label notepad__label--title">
+                Parent
+                <Icon title="create" className="notepad__icon" />
+              </p>
+              <Textarea
+                name="parent"
+                className="notepad__textarea notepad__stat"
+                onChange={onChange(task)}
+                value={render('parent')}
+              />
+            </div>
+            <div className="notepad__row">
               <p className="notepad__label">Ticket Number</p>
               <p className="notepad__stat">
                 {render('id').toUpperCase()}
@@ -157,14 +169,18 @@ const NotePad: React.FC<NotePadProps> = ({ devOps, task }) => {
                 </p>
               </div>
             }
-            {task.priority && 
-              <div className="notepad__row">
-                <p className="notepad__label">Priority</p>
-                <p className="notepad__stat">
-                  {render('priority')}
-                </p>
-              </div>
-            }
+            <div className="notepad__row">
+              <p className="notepad__label">
+                Priority
+                <Icon title="create" className="notepad__icon" />
+              </p>
+              <Input
+                name="priority"
+                className="notepad__input notepad__stat"
+                onChange={onChange(task)}
+                value={render('priority')}
+              />
+            </div>
             {task.severity && 
               <div className="notepad__row">
                 <p className="notepad__label">Severity</p>
@@ -173,12 +189,14 @@ const NotePad: React.FC<NotePadProps> = ({ devOps, task }) => {
                 </p>
               </div>
             }
-            <div className="notepad__row">
-              <p className="notepad__label">Created By</p>
-              <p className="notepad__stat">
-                {noBlank(render('createdBy'))}
-              </p>
-            </div>
+            {task.createdBy &&
+              <div className="notepad__row">
+                <p className="notepad__label">Created By</p>
+                <p className="notepad__stat">
+                  {noBlank(render('createdBy'))}
+                </p>
+              </div>
+            }
             <div className="notepad__row">
               <p className="notepad__label">Created On</p>
               <p className="notepad__stat">

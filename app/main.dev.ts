@@ -8,7 +8,7 @@
  * When running `yarn build` or `yarn build-main`, this file is compiled to
  * `./app/main.prod.js` using webpack. This gives us some performance wins.
  */
-import path from 'path';
+import path, {dirname} from 'path';
 import { app, BrowserWindow, ipcMain, shell, IpcMainEvent } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import csv from 'csv-parser';
@@ -55,6 +55,12 @@ const installExtensions = async () => {
   ).catch(console.log);
 };
 
+const setAppIcon = () => {
+  return process.platform === 'darwin' ?
+    path.join(__dirname, '../resources/icon.icns') : 
+    path.join(__dirname, '../resources/icon.png');
+}
+
 
 // ===========================================================================
 //                              Main Window
@@ -69,6 +75,8 @@ const createWindow = async () => {
 
 
   mainWindow = new BrowserWindow({
+    icon: setAppIcon(),
+    title: 'My Task Buddy',
     show: false,
     maximizable: true,
     webPreferences:
@@ -87,7 +95,7 @@ const createWindow = async () => {
           },
   });
 
-  mainWindow.loadURL(`file://${__dirname}/app.html`);
+  mainWindow.loadURL(`file://${__dirname}/app.html`).catch(console.log);
 
   mainWindow.webContents.on('did-finish-load', () => {
     if (!mainWindow) {
@@ -118,7 +126,7 @@ const createWindow = async () => {
 
   // Remove this if your app does not use auto updates
   // eslint-disable-next-line
-  new AppUpdater();
+  // new AppUpdater();
 };
 
 // ===========================================================================

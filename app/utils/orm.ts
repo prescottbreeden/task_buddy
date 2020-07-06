@@ -48,10 +48,6 @@ export const getOriginalEstimate = (task: any) => {
   const originalEstimate = task['Original Estimate'];
   return originalEstimate ? originalEstimate : '0';
 };
-export const getDescription = (task: any) => {
-  const description = task.Description;
-  return description ? description : undefined;
-};
 export const getDevOpsDescription = (task: any) => {
   const devOpsDescription = task.Description;
   return devOpsDescription ? devOpsDescription : undefined;

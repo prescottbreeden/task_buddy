@@ -10,13 +10,13 @@ import {
   getId,
   getIterationPath,
   getOriginalEstimate,
+  getParent,
   getPriority,
   getReproSteps,
   getSeverity,
   getTags,
   getTitle,
   getWorkItemType,
-  getParent,
 } from './orm';
 
 export const mergeObjects = <T>(obj1: T) => (obj2: Partial<T>): T => ({
@@ -47,7 +47,6 @@ export const buildOnChange = <T>(
   actionCreator: (data: T) => BaseAction,
   dispatcher: (action: BaseAction) => void
 ) => (item: T) => (data: Partial<T>) => {
-  console.log(item);
   return pipe(
     mergeObjects<T>(item),
     actionCreator,
@@ -75,7 +74,7 @@ export const noBlank = (bob: string) => {
   return bob ? bob : '-';
 };
 
-const generateDescription = (tasks: any[], task: any) => {
+const generateParentString = (tasks: any[], task: any) => {
   if ('Parent' in task) {
     const parentTask = find((t: any) => getId(t) === getParent(task), tasks);
     if (parentTask) {
@@ -96,12 +95,12 @@ export const parseDataFromCSV = (tasks: any[]): TaskType[] => {
       assignedTo: getAssignedTo(task),
       createdBy: getCreatedBy(task),
       createdDate: getCreatedDate(task),
-      description: generateDescription(tasks, task),
       devOpsDescription: getDevOpsDescription(task),
       id: getId(task),
       iterationPath: getIterationPath(task),
       originalEstimate: getOriginalEstimate(task),
-      parent: getParent(task),
+      parent: generateParentString(tasks, task),
+      parentId: getParent(task),
       priority: getPriority(task),
       reproSteps: getReproSteps(task),
       severity: getSeverity(task),
